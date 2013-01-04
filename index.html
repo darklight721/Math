@@ -23,17 +23,30 @@
             <script src="scripts/vendor/json3.min.js"></script>
         <![endif]-->
 
+        <div class="header-container">
+            <header>
+                <h1>Math Up!</h1>
+                <p>Challenge your friends in Math.</p>
+            </header>
+            <div class="player-panel">
+                Welcome <span>Guest</span>
+                <div>You have won <span>0</span> matches.</div>
+            </div>
+        </div>
+
         <!-- Add your site or application content here -->
         <div class="container" ng-view></div>
 
         <script src="scripts/vendor/angular.js"></script>
         <script src="scripts/vendor/jquery.min.js"></script>
         <script src="scripts/vendor/underscore-min.js"></script>
+        <script src="https://cdn.firebase.com/v0/firebase.js"></script>
 
         <!-- build:js scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/services/SetList.js"></script>
+        <script src="scripts/services/session.js"></script>
         <!-- endbuild -->
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
