@@ -7,6 +7,10 @@ var MathApp = angular.module('MathApp', [])
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/:gameId', {
+        templateUrl: 'views/game.html',
+        controller: 'GameCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
