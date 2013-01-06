@@ -10,43 +10,36 @@ MathApp.factory('session', function() {
   // Public API here
   return {
     createGame: function(callback) {
-      // i think theres no need for this game obj.
-      // in this createGame, just create the gameRef
-      // game obj will be populated in loadGame.
-      game = {
+      gameRef = gamesRef.push({
         owner: null,
         state: 'ready',
         players: null
-      };
-
-    	gameRef = gamesRef.push(game, function(success){
+      }, function(success){
     		if (success) {
-          game.id = gameRef.name();
-
           // add self to list of players
-          game.players = [{
+          var ownerRef = gameRef.child('players').push({
             name: 'Guest' // should get players name here
-          }];
-
-    			var ownerRef = gameRef.child('players').push(game.players[0]);
+          });
 
           // update game owner
-          game.owner = ownerRef.name();
-    			gameRef.update({owner: game.owner});
+    			gameRef.update({owner: ownerRef.name()});
     		}
 
-    		callback && callback(success, game.id);
+    		callback && callback(success, gameRef.name());
     	});
     },
     getGameId: function() {
-      return (game && game.id) ? game.id : null;
+      return gameRef ? gameRef.name() : null;
     },
     loadGame: function(gameId, callback) {
-      gameRef = gamesRef.child(gameId);
-      gameRef.once('value', function(data){
+      if (gameRef == null || gameRef.name() === gameId) {
+        gameRef = gamesRef.child(gameId);
+      }
+      gameRef.on('value', function(data){
         game = data.val();
         game.id = gameId;
-        callback && callback();
+        console.log(game);
+        callback && callback(game);
       });
     }
   };
