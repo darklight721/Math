@@ -5,8 +5,10 @@ MathApp.controller('GameCtrl', ['$scope', '$location', 'session', function($scop
 
   $scope.link = $location.absUrl();
   session.loadGame(gameId, function(game){
-  	$scope.$apply(function(){
+    $scope.$apply(function(){
   		$scope.players = game.players;
+			$scope.isOwner = session.isOwner(game.owner);
   	});
   });
+	
 }]);
